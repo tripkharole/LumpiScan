@@ -1,0 +1,164 @@
+/* ─── CattleCare Animation & Responsive Layer ────────────────────────────── */
+
+/* ── Keyframes ─────────────────────────────────────────────────────────────── */
+@keyframes cc-scan {
+  0%   { top: 0%; opacity: 1; }
+  48%  { opacity: 1; }
+  50%  { top: 100%; opacity: 0; }
+  51%  { top: 0%; opacity: 0; }
+  52%  { opacity: 1; }
+  100% { top: 100%; opacity: 1; }
+}
+@keyframes cc-pulse-ring {
+  0%   { transform: scale(1);    opacity: 0.7; }
+  100% { transform: scale(2.2);  opacity: 0; }
+}
+@keyframes cc-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes cc-bar-fill {
+  from { width: 0%; }
+}
+@keyframes cc-spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes cc-fade-zoom {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes cc-slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes cc-shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position: 400px 0; }
+}
+
+/* ── Utility Classes ───────────────────────────────────────────────────────── */
+
+/* Floating hero card */
+.cc-float { animation: cc-float 4s ease-in-out infinite; }
+
+/* Camera pulse ring */
+.cc-pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid #10b981;
+  animation: cc-pulse-ring 1.6s ease-out infinite;
+  pointer-events: none;
+}
+
+/* AI scanning line */
+.cc-scan-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.cc-scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #10b981, transparent);
+  animation: cc-scan 2s linear infinite;
+  z-index: 10;
+  box-shadow: 0 0 8px #10b981aa;
+}
+
+/* Result card reveal */
+.cc-fade-zoom { animation: cc-fade-zoom 0.4s ease both; }
+
+/* Confidence bar */
+.cc-bar-fill { animation: cc-bar-fill 1s ease both; }
+
+/* Dropdown slide-down */
+.cc-dropdown { animation: cc-slide-down 0.2s ease both; }
+
+/* Skeleton shimmer */
+.cc-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 37%, #f0f0f0 63%);
+  background-size: 400px 100%;
+  animation: cc-shimmer 1.4s ease infinite;
+}
+.dark .cc-shimmer {
+  background: linear-gradient(90deg, #1f2937 25%, #374151 37%, #1f2937 63%);
+  background-size: 400px 100%;
+}
+
+/* ── Card hover lift ───────────────────────────────────────────────────────── */
+.cc-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.cc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.10);
+}
+.dark .cc-card:hover {
+  box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+}
+
+/* ── Button effects ─────────────────────────────────────────────────────────── */
+.cc-btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.cc-btn-primary:hover  { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(16,185,129,0.35); }
+.cc-btn-primary:active { transform: translateY(0px);  box-shadow: none; }
+
+.cc-btn-outline {
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.cc-btn-outline:hover  { transform: translateY(-2px); }
+.cc-btn-outline:active { transform: translateY(0); }
+
+/* ── Navbar scroll shrink ──────────────────────────────────────────────────── */
+.cc-nav          { transition: height 0.25s ease, backdrop-filter 0.25s ease, background 0.25s ease; height: 56px; }
+.cc-nav.scrolled { height: 48px; backdrop-filter: blur(14px); background: rgba(255,255,255,0.82) !important; }
+.dark .cc-nav.scrolled { background: rgba(17,24,39,0.82) !important; }
+
+/* ── Theme toggle ──────────────────────────────────────────────────────────── */
+.cc-theme-icon {
+  display: inline-block;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+.cc-theme-icon:hover { transform: rotate(20deg) scale(1.15); }
+
+/* ── Staggered reveal helper ───────────────────────────────────────────────── */
+.cc-stagger > * { opacity: 0; transform: translateY(20px); }
+.cc-stagger.revealed > *:nth-child(1)  { animation: cc-fade-zoom 0.45s ease 0.00s both; }
+.cc-stagger.revealed > *:nth-child(2)  { animation: cc-fade-zoom 0.45s ease 0.08s both; }
+.cc-stagger.revealed > *:nth-child(3)  { animation: cc-fade-zoom 0.45s ease 0.16s both; }
+.cc-stagger.revealed > *:nth-child(4)  { animation: cc-fade-zoom 0.45s ease 0.24s both; }
+.cc-stagger.revealed > *:nth-child(5)  { animation: cc-fade-zoom 0.45s ease 0.32s both; }
+.cc-stagger.revealed > *:nth-child(6)  { animation: cc-fade-zoom 0.45s ease 0.40s both; }
+.cc-stagger.revealed > *:nth-child(7)  { animation: cc-fade-zoom 0.45s ease 0.48s both; }
+.cc-stagger.revealed > *:nth-child(8)  { animation: cc-fade-zoom 0.45s ease 0.56s both; }
+
+/* ── Reduced-motion: strip all ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Responsive helpers ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .cc-hero-title  { font-size: 1.75rem !important; line-height: 1.2; }
+  .cc-hero-grid   { flex-direction: column !important; }
+  .cc-stats-card  { width: 100% !important; max-width: 100% !important; }
+  .cc-detect-grid { grid-template-columns: 1fr !important; }
+  .cc-vet-grid    { grid-template-columns: 1fr !important; }
+  .cc-auth-grid   { grid-template-columns: 1fr !important; }
+  .cc-nav-links   { display: none; }
+  .cc-hamburger   { display: flex !important; }
+}
+@media (min-width: 641px) {
+  .cc-hamburger   { display: none !important; }
+  .cc-mobile-menu { display: none !important; }
+}

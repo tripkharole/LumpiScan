@@ -1,0 +1,127 @@
+{
+  "users": [
+    {
+      "id": "f8a00e01-58e6-4673-86dc-ea1f7ec0f48e",
+      "phone": "9302494765",
+      "location": "Indore",
+      "name": "Tripti",
+      "created_at": "2026-04-25T09:36:01.505165"
+    },
+    {
+      "id": "86271b9f-79c9-4c87-a514-92b0615228d6",
+      "phone": "6578096433",
+      "location": "indore",
+      "name": "tripti",
+      "created_at": "2026-04-26T11:02:49.077921"
+    }
+  ],
+  "vets": [
+    {
+      "id": "b3b906ae-c87e-4653-b925-161524926666",
+      "name": "tripti",
+      "phone": "9302494765",
+      "specialization": "Animal Surgery",
+      "clinic_address": "indore",
+      "lat": 32.0,
+      "lon": 76.0,
+      "rating": 4.5,
+      "reviews": 0,
+      "created_at": "2026-04-25T09:34:20.804036"
+    },
+    {
+      "id": "2b2e0b67-08bf-4fa0-b1a2-1bbdf7093493",
+      "name": "Tripti Kharole",
+      "phone": "9302494765",
+      "specialization": "Livestock Health",
+      "clinic_address": "Jamtha,Nagpur",
+      "lat": 21.01721,
+      "lon": 79.02996,
+      "rating": 4.5,
+      "reviews": 0,
+      "created_at": "2026-04-25T09:56:07.537329"
+    }
+  ],
+  "predictions": [
+    {
+      "id": "485e090f-534f-4d62-ad4b-c676448a88ca",
+      "user_id": "anonymous",
+      "filename": "d01478a6aa7d482eb49e9acba581b2f1.jpg",
+      "label": "Lumpy Skin Disease",
+      "confidence": 73.56,
+      "is_infected": true,
+      "timestamp": "2026-04-25T09:33:00.753376"
+    },
+    {
+      "id": "27a23c66-6eab-4b2b-975c-679f14bc9967",
+      "user_id": "anonymous",
+      "filename": "ed2c91497a264bf7a7f8866bbffbcf85.jpg",
+      "label": "Lumpy Skin Disease",
+      "confidence": 73.56,
+      "is_infected": true,
+      "timestamp": "2026-04-25T09:34:40.435299"
+    },
+    {
+      "id": "9f8c4a7c-0d43-4068-bd89-aa915694f047",
+      "user_id": "f8a00e01-58e6-4673-86dc-ea1f7ec0f48e",
+      "filename": "757e227d87f247f789da2d09c8a76a2b.jpg",
+      "label": "Lumpy Skin Disease",
+      "confidence": 66.83,
+      "is_infected": true,
+      "timestamp": "2026-04-25T09:37:38.982620"
+    },
+    {
+      "id": "1c51b690-1615-4e34-a8dd-53c293b8a144",
+      "user_id": "f8a00e01-58e6-4673-86dc-ea1f7ec0f48e",
+      "filename": "eaf3571bde6f444ea4151520a67a4551.jpg",
+      "label": "Lumpy Skin Disease",
+      "confidence": 73.56,
+      "is_infected": true,
+      "timestamp": "2026-04-26T09:34:26.886936"
+    },
+    {
+      "id": "115ea15f-c7e5-4892-ada9-6e77de458f52",
+      "user_id": "anonymous",
+      "filename": "2474c15ec6d044de947e119831a872fd.jpg",
+      "label": "Healthy",
+      "confidence": 80.16,
+      "is_infected": false,
+      "timestamp": "2026-04-26T10:43:56.832569"
+    },
+    {
+      "id": "08249fb0-2fa8-4b31-a65f-84cb56f60ac9",
+      "user_id": "anonymous",
+      "filename": "84577bd8c5504d31ba1522e7754d3abd.jpg",
+      "label": "Lumpy Skin Disease",
+      "confidence": 73.56,
+      "is_infected": true,
+      "timestamp": "2026-04-26T11:02:22.543922"
+    },
+    {
+      "id": "2863217e-98a1-4dfb-88d6-f50e4ffa5340",
+      "user_id": "86271b9f-79c9-4c87-a514-92b0615228d6",
+      "filename": "b704bb0cf4f6411c8127d8141676f933.jpg",
+      "label": "Lumpy Skin Disease",
+      "confidence": 66.83,
+      "is_infected": true,
+      "timestamp": "2026-04-26T11:03:06.512712"
+    },
+    {
+      "id": "fd758a47-34e4-44a2-a03f-4305448433c3",
+      "user_id": "86271b9f-79c9-4c87-a514-92b0615228d6",
+      "filename": "769c6e97ea3646819fc466bb4ae96c68.jpg",
+      "label": "Lumpy Skin Disease",
+      "confidence": 66.83,
+      "is_infected": true,
+      "timestamp": "2026-04-27T09:46:05.388772"
+    },
+    {
+      "id": "1b7f2082-ba09-4722-9131-c3f42e68ed67",
+      "user_id": "86271b9f-79c9-4c87-a514-92b0615228d6",
+      "filename": "7018cb7971cf4bd39cca88466fa708c7.jpg",
+      "label": "Lumpy Skin Disease",
+      "confidence": 73.56,
+      "is_infected": true,
+      "timestamp": "2026-04-27T09:57:05.369182"
+    }
+  ]
+}
