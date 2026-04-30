@@ -256,4 +256,5 @@ def get_history(user_id):
 
 if __name__ == "__main__":
     get_model()
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
