@@ -1,5 +1,5 @@
 """
-LumpiScanAI - Flask Backend
+CattleCare AI - Flask Backend
 Endpoints:
   POST /predict           - Predict LSD from uploaded image
   GET  /search-doctors    - Find nearby vets by location
@@ -64,11 +64,22 @@ def load_model_once():
         print(f"[MODEL] WARNING  {model_error}")
         return
     try:
-        model = load_model(resolved)
+        # compile=False avoids optimizer deserialization issues across TF versions
+        model = load_model(resolved, compile=False)
+        model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
         print("[MODEL] Loaded successfully")
     except Exception as exc:
         model_error = str(exc)
         print(f"[MODEL] ERROR Failed to load - {model_error}")
+        # Fallback: try legacy Keras loader
+        try:
+            import keras
+            model = keras.models.load_model(resolved, compile=False)
+            print("[MODEL] Loaded via legacy Keras fallback")
+            model_error = None
+        except Exception as exc2:
+            model_error = f"Both loaders failed. Primary: {exc} | Fallback: {exc2}"
+            print(f"[MODEL] ERROR Fallback also failed - {exc2}")
 
 load_model_once()   # runs once at import / startup
 # ──────────────────────────────────────────────────────────────────────────────
@@ -97,7 +108,7 @@ def haversine(lat1, lon1, lat2, lon2):
 @app.route("/", methods=["GET"])
 def health():
     return jsonify({
-        "status": "LumpiScanAPI running",
+        "status": "CattleCare API running",
         "model_loaded": model is not None,
         "model_path": os.path.abspath(MODEL_PATH),
         "model_error": model_error,
