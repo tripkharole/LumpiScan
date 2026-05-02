@@ -1,5 +1,5 @@
 """
-CattleCare AI - Flask Backend
+LumpiScanAI - Flask Backend
 Endpoints:
   POST /predict           - Predict LSD from uploaded image
   GET  /search-doctors    - Find nearby vets by location
@@ -97,7 +97,7 @@ def haversine(lat1, lon1, lat2, lon2):
 @app.route("/", methods=["GET"])
 def health():
     return jsonify({
-        "status": "CattleCare API running",
+        "status": "LumpiScanAPI running",
         "model_loaded": model is not None,
         "model_path": os.path.abspath(MODEL_PATH),
         "model_error": model_error,

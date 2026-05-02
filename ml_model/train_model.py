@@ -1,5 +1,5 @@
 """
-CattleCare AI - LSD Detection Model Training
+LumpiScanAI - LSD Detection Model Training
 Uses MobileNetV2 Transfer Learning for binary classification:
   - Class 0: Healthy
   - Class 1: Lumpy Skin Disease (LSD)
@@ -88,7 +88,7 @@ def get_data_generators():
 
 
 def train():
-    print("=== CattleCare AI - Model Training ===\n")
+    print("=== LumpiScanAI - Model Training ===\n")
     model = build_model()
     model.summary()
 

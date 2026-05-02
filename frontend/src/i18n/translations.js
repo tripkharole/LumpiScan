@@ -8,7 +8,7 @@ export const translations = {
 
     // Home
     hero_badge: "AI-POWERED DIAGNOSTICS LIVE",
-    hero_title: "CattleCare – AI Based Lumpy Skin Disease Detection System",
+    hero_title: "LumpiScan– AI Based Lumpy Skin Disease Detection System",
     hero_subtitle: "Precision healthcare for your livestock, powered by state-of-the-art artificial intelligence. Detect diseases early and connect with experts instantly.",
     hero_btn_detect: "Start Detection",
     hero_btn_vets: "Find Veterinary Doctors →",
@@ -97,7 +97,7 @@ export const translations = {
     nav_home: "होम", nav_detection: "जांच", nav_veterinary: "पशु चिकित्सा",
     nav_history: "इतिहास", nav_login: "लॉगिन", nav_logout: "लॉगआउट",
     hero_badge: "AI-संचालित डायग्नोस्टिक्स लाइव",
-    hero_title: "CattleCare – AI आधारित लम्पी स्किन रोग पहचान प्रणाली",
+    hero_title: "LumpiScan– AI आधारित लम्पी स्किन रोग पहचान प्रणाली",
     hero_subtitle: "अत्याधुनिक कृत्रिम बुद्धिमत्ता द्वारा संचालित आपके पशुधन के लिए सटीक स्वास्थ्य सेवा।",
     hero_btn_detect: "जांच शुरू करें",
     hero_btn_vets: "पशु चिकित्सक खोजें →",
@@ -147,7 +147,7 @@ export const translations = {
     history_confidence: "विश्वास",
     history_infected: "संक्रमित",
     history_healthy: "स्वस्थ",
-    auth_title: "CattleCare से जुड़ें",
+    auth_title: "LumpiScanसे जुड़ें",
     auth_owner_tab: "पशु मालिक लॉगिन",
     auth_vet_tab: "पशु चिकित्सक पंजीकरण",
     auth_owner_title: "उपयोगकर्ता लॉगिन / पंजीकरण",
@@ -175,7 +175,7 @@ export const translations = {
   mr: {
     nav_home: "मुख्यपृष्ठ", nav_detection: "तपासणी", nav_veterinary: "पशुवैद्यक",
     nav_history: "इतिहास", nav_login: "लॉगिन", nav_logout: "लॉगआउट",
-    hero_title: "CattleCare – AI आधारित लम्पी स्किन रोग शोध प्रणाली",
+    hero_title: "LumpiScan– AI आधारित लम्पी स्किन रोग शोध प्रणाली",
     hero_subtitle: "अत्याधुनिक AI द्वारे तुमच्या जनावरांसाठी अचूक आरोग्यसेवा.",
     hero_btn_detect: "तपासणी सुरू करा",
     hero_btn_vets: "पशुवैद्यक शोधा →",
@@ -193,7 +193,7 @@ export const translations = {
     vet_call: "कॉल करा", vet_book: "भेट बुक करा",
     history_title: "तपासणी इतिहास",
     history_infected: "संक्रमित", history_healthy: "निरोगी",
-    auth_title: "CattleCare मध्ये सामील व्हा",
+    auth_title: "LumpiScanमध्ये सामील व्हा",
     auth_owner_tab: "जनावर मालक लॉगिन",
     auth_vet_tab: "पशुवैद्यक नोंदणी",
     auth_phone: "फोन नंबर", auth_location: "स्थान",
@@ -210,7 +210,7 @@ export const translations = {
   gu: {
     nav_home: "હોમ", nav_detection: "તપાસ", nav_veterinary: "પશુ ચિકિત્સા",
     nav_history: "ઇતિહાસ", nav_login: "લૉગિન", nav_logout: "લૉગઆઉટ",
-    hero_title: "CattleCare – AI આધારિત લમ્પી સ્કિન રોગ શોધ સિસ્ટમ",
+    hero_title: "LumpiScan– AI આધારિત લમ્પી સ્કિન રોગ શોધ સિસ્ટમ",
     hero_subtitle: "અત્યાધુનિક AI દ્વારા તમારા પશુઓ માટે ચોક્કસ આરોગ્ય સેવા.",
     hero_btn_detect: "તપાસ શરૂ કરો",
     hero_btn_vets: "પશુ ચિકિત્સક શોધો →",
@@ -228,7 +228,7 @@ export const translations = {
     vet_call: "કૉલ કરો", vet_book: "મુલાકાત બુક કરો",
     history_title: "તપાસ ઇતિહાસ",
     history_infected: "સંક્રમિત", history_healthy: "સ્વસ્થ",
-    auth_title: "CattleCare સાથે જોડાઓ",
+    auth_title: "LumpiScanસાથે જોડાઓ",
     auth_owner_tab: "પશુ માલિક લૉગિન",
     auth_vet_tab: "પશુ ચિકિત્સક નોંધણી",
     auth_phone: "ફોન નંબર", auth_location: "સ્થાન",
@@ -245,7 +245,7 @@ export const translations = {
   pa: {
     nav_home: "ਹੋਮ", nav_detection: "ਜਾਂਚ", nav_veterinary: "ਪਸ਼ੂ ਚਿਕਿਤਸਾ",
     nav_history: "ਇਤਿਹਾਸ", nav_login: "ਲੌਗਿਨ", nav_logout: "ਲੌਗਆਉਟ",
-    hero_title: "CattleCare – AI ਆਧਾਰਿਤ ਲੰਪੀ ਸਕਿਨ ਰੋਗ ਖੋਜ ਪ੍ਰਣਾਲੀ",
+    hero_title: "LumpiScan– AI ਆਧਾਰਿਤ ਲੰਪੀ ਸਕਿਨ ਰੋਗ ਖੋਜ ਪ੍ਰਣਾਲੀ",
     hero_subtitle: "ਆਧੁਨਿਕ AI ਨਾਲ ਤੁਹਾਡੇ ਪਸ਼ੂਆਂ ਲਈ ਸਟੀਕ ਸਿਹਤ ਸੇਵਾ।",
     hero_btn_detect: "ਜਾਂਚ ਸ਼ੁਰੂ ਕਰੋ",
     hero_btn_vets: "ਪਸ਼ੂ ਡਾਕਟਰ ਲੱਭੋ →",
@@ -263,7 +263,7 @@ export const translations = {
     vet_call: "ਕਾਲ ਕਰੋ", vet_book: "ਅਪੌਇੰਟਮੈਂਟ ਬੁੱਕ ਕਰੋ",
     history_title: "ਜਾਂਚ ਇਤਿਹਾਸ",
     history_infected: "ਸੰਕ੍ਰਮਿਤ", history_healthy: "ਸਿਹਤਮੰਦ",
-    auth_title: "CattleCare ਨਾਲ ਜੁੜੋ",
+    auth_title: "LumpiScanਨਾਲ ਜੁੜੋ",
     auth_owner_tab: "ਪਸ਼ੂ ਮਾਲਕ ਲੌਗਿਨ",
     auth_vet_tab: "ਪਸ਼ੂ ਡਾਕਟਰ ਰਜਿਸਟ੍ਰੇਸ਼ਨ",
     auth_phone: "ਫ਼ੋਨ ਨੰਬਰ", auth_location: "ਸਥਾਨ",
@@ -280,7 +280,7 @@ export const translations = {
   bn: {
     nav_home: "হোম", nav_detection: "সনাক্তকরণ", nav_veterinary: "পশু চিকিৎসা",
     nav_history: "ইতিহাস", nav_login: "লগইন", nav_logout: "লগআউট",
-    hero_title: "CattleCare – AI ভিত্তিক লাম্পি স্কিন রোগ সনাক্তকরণ সিস্টেম",
+    hero_title: "LumpiScan– AI ভিত্তিক লাম্পি স্কিন রোগ সনাক্তকরণ সিস্টেম",
     hero_subtitle: "অত্যাধুনিক AI দিয়ে আপনার গবাদিপশুর জন্য নির্ভুল স্বাস্থ্যসেবা।",
     hero_btn_detect: "সনাক্তকরণ শুরু করুন",
     hero_btn_vets: "পশু চিকিৎসক খুঁজুন →",
@@ -298,7 +298,7 @@ export const translations = {
     vet_call: "কল করুন", vet_book: "অ্যাপয়েন্টমেন্ট বুক করুন",
     history_title: "সনাক্তকরণ ইতিহাস",
     history_infected: "সংক্রমিত", history_healthy: "সুস্থ",
-    auth_title: "CattleCare এ যোগ দিন",
+    auth_title: "LumpiScanএ যোগ দিন",
     auth_owner_tab: "গবাদিপশু মালিক লগইন",
     auth_vet_tab: "পশু চিকিৎসক নিবন্ধন",
     auth_phone: "ফোন নম্বর", auth_location: "অবস্থান",
@@ -315,7 +315,7 @@ export const translations = {
   ar: {
     nav_home: "الرئيسية", nav_detection: "الكشف", nav_veterinary: "الطب البيطري",
     nav_history: "السجل", nav_login: "تسجيل الدخول", nav_logout: "تسجيل الخروج",
-    hero_title: "CattleCare – نظام الكشف عن مرض الجلد العقدي بالذكاء الاصطناعي",
+    hero_title: "LumpiScan– نظام الكشف عن مرض الجلد العقدي بالذكاء الاصطناعي",
     hero_subtitle: "رعاية صحية دقيقة لماشيتك بأحدث تقنيات الذكاء الاصطناعي.",
     hero_btn_detect: "ابدأ الكشف",
     hero_btn_vets: "ابحث عن أطباء بيطريين →",
@@ -350,7 +350,7 @@ export const translations = {
   fr: {
     nav_home: "Accueil", nav_detection: "Détection", nav_veterinary: "Vétérinaire",
     nav_history: "Historique", nav_login: "Connexion", nav_logout: "Déconnexion",
-    hero_title: "CattleCare – Système de détection de la dermatose nodulaire par IA",
+    hero_title: "LumpiScan– Système de détection de la dermatose nodulaire par IA",
     hero_subtitle: "Des soins de santé précis pour votre bétail grâce à l'IA de pointe.",
     hero_btn_detect: "Démarrer la détection",
     hero_btn_vets: "Trouver des vétérinaires →",
@@ -385,7 +385,7 @@ export const translations = {
   es: {
     nav_home: "Inicio", nav_detection: "Detección", nav_veterinary: "Veterinaria",
     nav_history: "Historial", nav_login: "Iniciar sesión", nav_logout: "Cerrar sesión",
-    hero_title: "CattleCare – Sistema de detección de dermatosis nodular bovina con IA",
+    hero_title: "LumpiScan– Sistema de detección de dermatosis nodular bovina con IA",
     hero_subtitle: "Atención de salud precisa para su ganado con inteligencia artificial de vanguardia.",
     hero_btn_detect: "Iniciar detección",
     hero_btn_vets: "Encontrar veterinarios →",
@@ -420,7 +420,7 @@ export const translations = {
   sw: {
     nav_home: "Nyumbani", nav_detection: "Uchunguzi", nav_veterinary: "Daktari wa Mifugo",
     nav_history: "Historia", nav_login: "Ingia", nav_logout: "Toka",
-    hero_title: "CattleCare – Mfumo wa AI wa Kugundua Ugonjwa wa Ngozi ya Ng'ombe",
+    hero_title: "LumpiScan– Mfumo wa AI wa Kugundua Ugonjwa wa Ngozi ya Ng'ombe",
     hero_subtitle: "Huduma bora ya afya kwa mifugo wako kupitia akili bandia ya kisasa.",
     hero_btn_detect: "Anza Uchunguzi",
     hero_btn_vets: "Pata Madaktari wa Mifugo →",
@@ -455,7 +455,7 @@ export const translations = {
   tr: {
     nav_home: "Ana Sayfa", nav_detection: "Tespit", nav_veterinary: "Veteriner",
     nav_history: "Geçmiş", nav_login: "Giriş", nav_logout: "Çıkış",
-    hero_title: "CattleCare – AI Tabanlı Şişli Deri Hastalığı Tespit Sistemi",
+    hero_title: "LumpiScan– AI Tabanlı Şişli Deri Hastalığı Tespit Sistemi",
     hero_subtitle: "En son yapay zeka ile büyükbaş hayvanlarınız için hassas sağlık hizmetleri.",
     hero_btn_detect: "Tespiti Başlat",
     hero_btn_vets: "Veteriner Bul →",
@@ -490,7 +490,7 @@ export const translations = {
   pt: {
     nav_home: "Início", nav_detection: "Detecção", nav_veterinary: "Veterinário",
     nav_history: "Histórico", nav_login: "Entrar", nav_logout: "Sair",
-    hero_title: "CattleCare – Sistema de Detecção de Dermatose Nodular por IA",
+    hero_title: "LumpiScan– Sistema de Detecção de Dermatose Nodular por IA",
     hero_subtitle: "Cuidados de saúde precisos para seu gado com inteligência artificial de ponta.",
     hero_btn_detect: "Iniciar Detecção",
     hero_btn_vets: "Encontrar Veterinários →",
@@ -525,7 +525,7 @@ export const translations = {
   ru: {
     nav_home: "Главная", nav_detection: "Диагностика", nav_veterinary: "Ветеринария",
     nav_history: "История", nav_login: "Войти", nav_logout: "Выйти",
-    hero_title: "CattleCare – Система обнаружения бугорчатки кожи на основе ИИ",
+    hero_title: "LumpiScan– Система обнаружения бугорчатки кожи на основе ИИ",
     hero_subtitle: "Точная медицинская помощь вашему скоту с помощью передового ИИ.",
     hero_btn_detect: "Начать диагностику",
     hero_btn_vets: "Найти ветеринаров →",
@@ -560,7 +560,7 @@ export const translations = {
   zh: {
     nav_home: "首页", nav_detection: "检测", nav_veterinary: "兽医",
     nav_history: "历史", nav_login: "登录", nav_logout: "退出",
-    hero_title: "CattleCare – AI牛结节性皮肤病检测系统",
+    hero_title: "LumpiScan– AI牛结节性皮肤病检测系统",
     hero_subtitle: "利用最先进的人工智能为您的牲畜提供精准的健康护理。",
     hero_btn_detect: "开始检测",
     hero_btn_vets: "寻找兽医 →",
@@ -595,7 +595,7 @@ export const translations = {
   id: {
     nav_home: "Beranda", nav_detection: "Deteksi", nav_veterinary: "Dokter Hewan",
     nav_history: "Riwayat", nav_login: "Masuk", nav_logout: "Keluar",
-    hero_title: "CattleCare – Sistem Deteksi Penyakit Kulit Berbenjol dengan AI",
+    hero_title: "LumpiScan– Sistem Deteksi Penyakit Kulit Berbenjol dengan AI",
     hero_subtitle: "Layanan kesehatan ternak yang tepat dengan kecerdasan buatan terkini.",
     hero_btn_detect: "Mulai Deteksi",
     hero_btn_vets: "Cari Dokter Hewan →",
@@ -630,7 +630,7 @@ export const translations = {
   te: {
     nav_home: "హోమ్", nav_detection: "గుర్తింపు", nav_veterinary: "పశువైద్యం",
     nav_history: "చరిత్ర", nav_login: "లాగిన్", nav_logout: "లాగ్అవుట్",
-    hero_title: "CattleCare – AI ఆధారిత లంపీ స్కిన్ వ్యాధి గుర్తింపు వ్యవస్థ",
+    hero_title: "LumpiScan– AI ఆధారిత లంపీ స్కిన్ వ్యాధి గుర్తింపు వ్యవస్థ",
     hero_btn_detect: "గుర్తింపు ప్రారంభించండి",
     detect_btn_run: "AI నిర్ధారణ అమలు చేయండి",
     detect_btn_running: "విశ్లేషణ జరుగుతోంది...",
@@ -644,7 +644,7 @@ export const translations = {
   ta: {
     nav_home: "முகப்பு", nav_detection: "கண்டறிதல்", nav_veterinary: "கால்நடை மருத்துவம்",
     nav_history: "வரலாறு", nav_login: "உள்நுழை", nav_logout: "வெளியேறு",
-    hero_title: "CattleCare – AI அடிப்படையிலான கட்டி தோல் நோய் கண்டறிதல் அமைப்பு",
+    hero_title: "LumpiScan– AI அடிப்படையிலான கட்டி தோல் நோய் கண்டறிதல் அமைப்பு",
     hero_btn_detect: "கண்டறிதலை தொடங்கு",
     detect_btn_run: "AI நோய் கண்டறிதலை இயக்கு",
     detect_btn_running: "பகுப்பாய்வு நடக்கிறது...",
@@ -657,7 +657,7 @@ export const translations = {
   kn: {
     nav_home: "ಮುಖಪುಟ", nav_detection: "ಪತ್ತೆ", nav_veterinary: "ಪಶುವೈದ್ಯ",
     nav_history: "ಇತಿಹಾಸ", nav_login: "ಲಾಗಿನ್", nav_logout: "ಲಾಗ್ಔಟ್",
-    hero_title: "CattleCare – AI ಆಧಾರಿತ ಉಬ್ಬು ಚರ್ಮ ರೋಗ ಪತ್ತೆ ವ್ಯವಸ್ಥೆ",
+    hero_title: "LumpiScan– AI ಆಧಾರಿತ ಉಬ್ಬು ಚರ್ಮ ರೋಗ ಪತ್ತೆ ವ್ಯವಸ್ಥೆ",
     hero_btn_detect: "ಪತ್ತೆ ಪ್ರಾರಂಭಿಸಿ",
     detect_btn_run: "AI ರೋಗನಿರ್ಣಯ ಚಲಾಯಿಸಿ",
     detect_btn_running: "ವಿಶ್ಲೇಷಣೆ ನಡೆಯುತ್ತಿದೆ...",
@@ -670,7 +670,7 @@ export const translations = {
   ur: {
     nav_home: "ہوم", nav_detection: "تشخیص", nav_veterinary: "ویٹرنری",
     nav_history: "تاریخ", nav_login: "لاگ ان", nav_logout: "لاگ آؤٹ",
-    hero_title: "CattleCare – AI پر مبنی گانٹھ دار جلد کے مرض کی تشخیص",
+    hero_title: "LumpiScan– AI پر مبنی گانٹھ دار جلد کے مرض کی تشخیص",
     hero_btn_detect: "تشخیص شروع کریں",
     detect_btn_run: "AI تشخیص چلائیں",
     detect_btn_running: "تجزیہ ہو رہا ہے...",
@@ -683,7 +683,7 @@ export const translations = {
   ne: {
     nav_home: "गृहपृष्ठ", nav_detection: "पहिचान", nav_veterinary: "पशु चिकित्सा",
     nav_history: "इतिहास", nav_login: "लगइन", nav_logout: "लगआउट",
-    hero_title: "CattleCare – AI आधारित लम्पी छाला रोग पहिचान प्रणाली",
+    hero_title: "LumpiScan– AI आधारित लम्पी छाला रोग पहिचान प्रणाली",
     hero_btn_detect: "पहिचान सुरु गर्नुहोस्",
     detect_btn_run: "AI निदान चलाउनुहोस्",
     detect_btn_running: "विश्लेषण भइरहेको छ...",
