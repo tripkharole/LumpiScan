@@ -27,7 +27,7 @@ CORS(app)  # Allow React frontend on different port
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__)) 
-MODEL_PATH = os.path.join(BASE_DIR, "model", "lsd_model_tf213.h5")     # .../backend/
+MODEL_PATH = os.path.join(BASE_DIR, "model", "lsd_model.keras")
 UPLOAD_DIR  = os.path.join(BASE_DIR, "uploads")
 DB_FILE     = os.path.join(BASE_DIR, "database.json")
 IMG_SIZE    = 224
