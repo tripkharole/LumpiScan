@@ -26,13 +26,11 @@ app = Flask(__name__)
 CORS(app)  # Allow React frontend on different port
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "../ml_model/lsd_model.h5")
-# MODEL_PATH   = "../ml_model/lsd_model.h5"
-UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
-DB_FILE = os.path.join(BASE_DIR, "database.json")
-   # Simple JSON "database" (replace with real DB later)
-IMG_SIZE     = 224
+BASE_DIR    = os.path.dirname(os.path.abspath(__file__))         # .../backend/
+MODEL_PATH  = os.path.join(BASE_DIR, "model", "lsd_model.h5")   # backend/model/lsd_model.h5
+UPLOAD_DIR  = os.path.join(BASE_DIR, "uploads")
+DB_FILE     = os.path.join(BASE_DIR, "database.json")
+IMG_SIZE    = 224
 CLASS_NAMES = ["Healthy", "Lumpy Skin Disease"]
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -52,17 +50,27 @@ def save_db(data):
 # ──────────────────────────────────────────────────────────────────────────────
 
 
-# ─── LOAD MODEL ───────────────────────────────────────────────────────────────
-model = None
-def get_model():
-    global model
-    if model is None:
-        if os.path.exists(MODEL_PATH):
-            model = load_model(MODEL_PATH)
-            print("✅ Model loaded")
-        else:
-            print(f"⚠️  Model not found at {MODEL_PATH}. Train it first.")
-    return model
+# ─── LOAD MODEL AT STARTUP ────────────────────────────────────────────────────
+model       = None
+model_error = None
+
+def load_model_once():
+    global model, model_error
+    resolved = os.path.abspath(MODEL_PATH)
+    print(f"[MODEL] Resolved path : {resolved}")
+    print(f"[MODEL] File exists   : {os.path.exists(resolved)}")
+    if not os.path.exists(resolved):
+        model_error = f"Model file not found: {resolved}"
+        print(f"[MODEL] WARNING  {model_error}")
+        return
+    try:
+        model = load_model(resolved)
+        print("[MODEL] Loaded successfully")
+    except Exception as exc:
+        model_error = str(exc)
+        print(f"[MODEL] ERROR Failed to load - {model_error}")
+
+load_model_once()   # runs once at import / startup
 # ──────────────────────────────────────────────────────────────────────────────
 
 
@@ -88,7 +96,12 @@ def haversine(lat1, lon1, lat2, lon2):
 
 @app.route("/", methods=["GET"])
 def health():
-    return jsonify({"status": "CattleCare API running", "model_loaded": model is not None})
+    return jsonify({
+        "status": "CattleCare API running",
+        "model_loaded": model is not None,
+        "model_path": os.path.abspath(MODEL_PATH),
+        "model_error": model_error,
+    })
 
 
 @app.route("/predict", methods=["POST"])
@@ -111,14 +124,13 @@ def predict():
         f.write(img_bytes)
 
     # Inference
-    m = get_model()
-    if m is None:
+    if model is None:
         # Demo mode: return mock result if model not trained yet
         prediction_idx = 1
         confidence = 0.94
     else:
         processed = preprocess_image(img_bytes)
-        preds = m.predict(processed)[0]
+        preds = model.predict(processed)[0]
         prediction_idx = int(np.argmax(preds))
         confidence = float(np.max(preds))
 
@@ -255,6 +267,5 @@ def get_history(user_id):
 
 
 if __name__ == "__main__":
-    get_model()
-    port = int(os.environ.get("PORT", 8000))
-    app.run(host="0.0.0.0", port=port)
+    # Model already loaded at startup via load_model_once()
+    app.run(debug=True, port=5000)
