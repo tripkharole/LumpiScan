@@ -147,6 +147,15 @@
       "confidence": 66.83,
       "is_infected": true,
       "timestamp": "2026-05-02T09:37:17.108170"
+    },
+    {
+      "id": "0405817e-7f44-4e1f-bec0-6a837bcb7c72",
+      "user_id": "c3447c1a-1a0c-43a4-91ac-c1f6019332b3",
+      "filename": "ae8e06bf31cc4220a35f4a1d227afecc.jpg",
+      "label": "Lumpy Skin Disease",
+      "confidence": 73.56,
+      "is_infected": true,
+      "timestamp": "2026-05-02T11:46:46.876354"
     }
   ]
 }
