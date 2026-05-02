@@ -26,8 +26,8 @@ app = Flask(__name__)
 CORS(app)  # Allow React frontend on different port
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__)) 
-MODEL_PATH = os.path.join(BASE_DIR, "model", "lsd_model.keras")
+BASE_DIR    = os.path.dirname(os.path.abspath(__file__))         # .../backend/
+MODEL_PATH  = os.path.join(BASE_DIR, "model", "lsd_model.h5")   # backend/model/lsd_model.h5
 UPLOAD_DIR  = os.path.join(BASE_DIR, "uploads")
 DB_FILE     = os.path.join(BASE_DIR, "database.json")
 IMG_SIZE    = 224
@@ -191,33 +191,76 @@ def predict():
 @app.route("/search-doctors", methods=["GET"])
 def search_doctors():
     """
-    Query params: lat, lon, radius_km (default 50)
-    Returns list of nearby veterinarians sorted by distance
+    Query params:
+      - location (text) : match vets whose clinic_address contains this string (case-insensitive)
+      - lat, lon        : optional GPS coords for distance sorting
+      - radius_km       : optional radius filter when lat/lon provided (default 50)
+    Returns list of matching veterinarians sorted by distance (if coords given) or alphabetically.
     """
+    location_text = (request.args.get("location", "") or "").strip().lower()
+    lat_raw = request.args.get("lat")
+    lon_raw = request.args.get("lon")
+    radius  = float(request.args.get("radius_km", 9999))
+
+    has_coords = lat_raw and lon_raw
     try:
-        user_lat = float(request.args.get("lat", 0))
-        user_lon = float(request.args.get("lon", 0))
-        radius   = float(request.args.get("radius_km", 50))
+        user_lat = float(lat_raw) if has_coords else None
+        user_lon = float(lon_raw) if has_coords else None
     except ValueError:
         return jsonify({"error": "Invalid coordinates"}), 400
 
     db = load_db()
-    nearby = []
+    results = []
     for vet in db["vets"]:
-        try:
-            dist = haversine(user_lat, user_lon, vet["lat"], vet["lon"])
-            if dist <= radius:
-                nearby.append({**vet, "distance_km": round(dist, 1)})
-        except Exception:
-            pass
+        address = (vet.get("clinic_address", "") or "").lower()
+        name    = (vet.get("name", "") or "").lower()
 
-    nearby.sort(key=lambda v: v["distance_km"])
-    return jsonify({"vets": nearby, "total": len(nearby)})
+        # Text match: location string is substring of address OR vet name
+        text_match = (not location_text) or (location_text in address) or (location_text in name)
+        if not text_match:
+            continue
+
+        # Distance filter (optional)
+        dist = None
+        if has_coords and vet.get("lat") and vet.get("lon"):
+            try:
+                dist = haversine(user_lat, user_lon, vet["lat"], vet["lon"])
+                if dist > radius:
+                    continue
+            except Exception:
+                pass
+
+        results.append({
+            **vet,
+            "distance_km": round(dist, 1) if dist is not None else None
+        })
+
+    # Sort: by distance if available, else by name
+    results.sort(key=lambda v: (v["distance_km"] is None, v["distance_km"] or 0, v.get("name", "")))
+    return jsonify({"vets": results, "total": len(results)})
+
+
+@app.route("/login-user", methods=["POST"])
+def login_user():
+    """Login existing cattle owner by phone number."""
+    data = request.json or {}
+    phone = data.get("phone", "").strip()
+    if not phone:
+        return jsonify({"error": "Phone number required"}), 400
+
+    db = load_db()
+    user = next((u for u in db["users"] if u["phone"] == phone), None)
+    if not user:
+        return jsonify({"error": "Phone not registered. Please register first."}), 404
+
+    return jsonify({"message": "Login successful", "user_id": user["id"],
+                    "name": user.get("name", ""), "location": user.get("location", ""),
+                    "phone": user["phone"]}), 200
 
 
 @app.route("/register-user", methods=["POST"])
 def register_user():
-    """Register a cattle owner."""
+    """Register a new cattle owner."""
     data = request.json or {}
     required = ["phone", "location"]
     for field in required:
@@ -225,9 +268,8 @@ def register_user():
             return jsonify({"error": f"Missing field: {field}"}), 400
 
     db = load_db()
-    # Check duplicate
     if any(u["phone"] == data["phone"] for u in db["users"]):
-        return jsonify({"error": "Phone already registered"}), 409
+        return jsonify({"error": "Phone already registered. Please login instead."}), 409
 
     user = {
         "id": str(uuid.uuid4()),
@@ -238,27 +280,32 @@ def register_user():
     }
     db["users"].append(user)
     save_db(db)
-    return jsonify({"message": "User registered", "user_id": user["id"]}), 201
+    return jsonify({"message": "Registered successfully", "user_id": user["id"],
+                    "name": user["name"], "location": user["location"],
+                    "phone": user["phone"]}), 201
 
 
 @app.route("/register-vet", methods=["POST"])
 def register_vet():
-    """Register a veterinary doctor."""
+    """Register a veterinary doctor. lat/lon are optional."""
     data = request.json or {}
-    required = ["name", "phone", "specialization", "clinic_address", "lat", "lon"]
+    required = ["name", "phone", "specialization", "clinic_address"]
     for field in required:
         if field not in data:
             return jsonify({"error": f"Missing field: {field}"}), 400
 
     db = load_db()
+    if any(v["phone"] == data["phone"] for v in db["vets"]):
+        return jsonify({"error": "Phone already registered as veterinarian."}), 409
+
     vet = {
         "id": str(uuid.uuid4()),
         "name": data["name"],
         "phone": data["phone"],
         "specialization": data["specialization"],
         "clinic_address": data["clinic_address"],
-        "lat": float(data["lat"]),
-        "lon": float(data["lon"]),
+        "lat": float(data["lat"]) if data.get("lat") else None,
+        "lon": float(data["lon"]) if data.get("lon") else None,
         "rating": 4.5,
         "reviews": 0,
         "created_at": datetime.utcnow().isoformat()

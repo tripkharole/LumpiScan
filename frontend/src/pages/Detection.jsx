@@ -216,7 +216,7 @@ export default function Detection() {
                 </div>
 
                 {result.is_infected && (
-                  <a href="/veterinary"
+                  <a href={`/veterinary?location=${encodeURIComponent(user?.location || "")}`}
                     className="cc-btn-primary block w-full text-center py-2.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 text-sm sm:text-base">
                     {t("detect_connect_vet")}
                   </a>
