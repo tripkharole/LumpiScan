@@ -56,7 +56,7 @@ export default function Home() {
         <Reveal delay={120} className="flex-1 flex justify-center w-full">
           <div className="cc-float cc-card bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-xs sm:max-w-sm">
             <div className="text-center mb-4">
-              <div className="text-4xl sm:text-5xl font-bold text-emerald-600 dark:text-emerald-400">98.4%</div>
+              <div className="text-4xl sm:text-5xl font-bold text-emerald-600 dark:text-emerald-400">95.15%</div>
               <div className="text-gray-500 dark:text-gray-400 text-sm mt-1">Model Accuracy</div>
             </div>
             <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2 mb-6">

@@ -9,29 +9,29 @@ Endpoints:
 """
 
 import os
+import sys
 import uuid
 import json
 from datetime import datetime
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import numpy as np
-import tensorflow as tf
-from tensorflow.keras.models import load_model
-from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
-from PIL import Image
-import io
 import math
+
+# predict.py is in the same backend/ folder — no path manipulation needed
+try:
+    from predict import get_predictor
+    HAS_PREDICTOR = True
+except ImportError as e:
+    print(f"[WARN] Could not import predictor: {e}")
+    HAS_PREDICTOR = False
 
 app = Flask(__name__)
 CORS(app)  # Allow React frontend on different port
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
-BASE_DIR    = os.path.dirname(os.path.abspath(__file__))         # .../backend/
-MODEL_PATH  = os.path.join(BASE_DIR, "model", "lsd_model.h5")   # backend/model/lsd_model.h5
-UPLOAD_DIR  = os.path.join(BASE_DIR, "uploads")
-DB_FILE     = os.path.join(BASE_DIR, "database.json")
-IMG_SIZE    = 224
-CLASS_NAMES = ["Healthy", "Lumpy Skin Disease"]
+BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
+DB_FILE    = os.path.join(BASE_DIR, "database.json")
 # ──────────────────────────────────────────────────────────────────────────────
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
@@ -50,48 +50,30 @@ def save_db(data):
 # ──────────────────────────────────────────────────────────────────────────────
 
 
-# ─── LOAD MODEL AT STARTUP ────────────────────────────────────────────────────
-model       = None
-model_error = None
+# ─── LOAD PREDICTOR AT STARTUP ───────────────────────────────────────────────
+_predictor    = None
+_startup_error = None
 
-def load_model_once():
-    global model, model_error
-    resolved = os.path.abspath(MODEL_PATH)
-    print(f"[MODEL] Resolved path : {resolved}")
-    print(f"[MODEL] File exists   : {os.path.exists(resolved)}")
-    if not os.path.exists(resolved):
-        model_error = f"Model file not found: {resolved}"
-        print(f"[MODEL] WARNING  {model_error}")
-        return
+def get_or_init_predictor():
+    global _predictor, _startup_error
+    if _predictor is not None:
+        return _predictor
+    if not HAS_PREDICTOR:
+        _startup_error = "predict.py module not found"
+        return None
     try:
-        # compile=False avoids optimizer deserialization issues across TF versions
-        model = load_model(resolved, compile=False)
-        model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
-        print("[MODEL] Loaded successfully")
-    except Exception as exc:
-        model_error = str(exc)
-        print(f"[MODEL] ERROR Failed to load - {model_error}")
-        # Fallback: try legacy Keras loader
-        try:
-            import keras
-            model = keras.models.load_model(resolved, compile=False)
-            print("[MODEL] Loaded via legacy Keras fallback")
-            model_error = None
-        except Exception as exc2:
-            model_error = f"Both loaders failed. Primary: {exc} | Fallback: {exc2}"
-            print(f"[MODEL] ERROR Fallback also failed - {exc2}")
+        _predictor = get_predictor()
+        return _predictor
+    except Exception as e:
+        _startup_error = str(e)
+        print(f"[PREDICTOR] ERROR: {e}")
+        return None
 
-load_model_once()   # runs once at import / startup
+get_or_init_predictor()   # warm up at startup
 # ──────────────────────────────────────────────────────────────────────────────
 
 
-def preprocess_image(image_bytes):
-    """Preprocess image bytes for MobileNetV2 inference."""
-    img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-    img = img.resize((IMG_SIZE, IMG_SIZE))
-    arr = np.array(img, dtype=np.float32)
-    arr = preprocess_input(arr)
-    return np.expand_dims(arr, axis=0)
+
 
 
 def haversine(lat1, lon1, lat2, lon2):
@@ -105,86 +87,111 @@ def haversine(lat1, lon1, lat2, lon2):
 
 # ─── ROUTES ───────────────────────────────────────────────────────────────────
 
+@app.route("/debug-predict", methods=["POST"])
+def debug_predict():
+    """Debug endpoint — returns raw model output to identify label swap issues."""
+    if "image" not in request.files:
+        return jsonify({"error": "No image"}), 400
+    if model is None:
+        return jsonify({"error": "Model not loaded", "model_error": model_error}), 503
+
+    img_bytes = request.files["image"].read()
+    processed = preprocess_image(img_bytes)
+    preds = model.predict(processed)[0]
+
+    return jsonify({
+        "raw_output": preds.tolist(),
+        "class_0_score": float(preds[0]),
+        "class_1_score": float(preds[1]),
+        "current_class_names": CLASS_NAMES,
+        "predicted_index": int(np.argmax(preds)),
+        "predicted_label": CLASS_NAMES[int(np.argmax(preds))],
+        "confidence": float(np.max(preds)),
+        "hint": "If healthy images show high class_1_score, your CLASS_NAMES order is swapped. Swap index 0 and 1."
+    })
+
 @app.route("/", methods=["GET"])
 def health():
+    p = get_or_init_predictor()
     return jsonify({
         "status": "CattleCare API running",
-        "model_loaded": model is not None,
-        "model_path": os.path.abspath(MODEL_PATH),
-        "model_error": model_error,
+        "lsd_model_loaded":  p is not None and p.lsd_model is not None,
+        "cow_model_loaded":  p is not None and p.cow_model is not None,
+        "lsd_threshold":     p.lsd_threshold if p else None,
+        "cow_threshold":     p.cow_threshold if p else None,
+        "lsd_class_mapping": p.lsd_map if p else None,
+        "cow_class_mapping": p.cow_map if p else None,
+        "startup_error":     _startup_error,
     })
 
 
 @app.route("/predict", methods=["POST"])
 def predict():
     """
-    Accepts: multipart/form-data with 'image' file + optional 'user_id'
-    Returns: { prediction, confidence, label, recommendations, saved_path }
+    Two-stage prediction:
+      Stage 1 — cow_or_not model: validates image is a cow
+      Stage 2 — lsd model: healthy vs lumpy
     """
     if "image" not in request.files:
         return jsonify({"error": "No image uploaded"}), 400
 
-    file = request.files["image"]
+    file    = request.files["image"]
     user_id = request.form.get("user_id", "anonymous")
 
-    # Read and save image
+    # Save uploaded image
     img_bytes = file.read()
-    filename = f"{uuid.uuid4().hex}.jpg"
+    filename  = f"{uuid.uuid4().hex}.jpg"
     save_path = os.path.join(UPLOAD_DIR, filename)
-    with open(save_path, "wb") as f:
-        f.write(img_bytes)
+    with open(save_path, "wb") as fh:
+        fh.write(img_bytes)
 
-    # Inference
-    if model is None:
-        # Demo mode: return mock result if model not trained yet
-        prediction_idx = 1
-        confidence = 0.94
-    else:
-        processed = preprocess_image(img_bytes)
-        preds = model.predict(processed)[0]
-        prediction_idx = int(np.argmax(preds))
-        confidence = float(np.max(preds))
+    # Get predictor
+    p = get_or_init_predictor()
+    if p is None:
+        return jsonify({
+            "error": "Predictor not loaded. Check server logs.",
+            "startup_error": _startup_error
+        }), 503
 
-    label = CLASS_NAMES[prediction_idx]
-    is_infected = prediction_idx == 1
+    # Run two-stage prediction
+    import io as _io
+    result = p.predict(_io.BytesIO(img_bytes))
 
-    recommendations = []
-    if is_infected:
-        recommendations = [
-            "Immediately isolate the animal from the herd.",
-            "Contact a registered veterinarian as soon as possible.",
-            "Administer prescribed anti-inflammatory medication.",
-            "Apply insect/vector control measures in the barn.",
-            "Report to local livestock disease authority."
-        ]
-    else:
-        recommendations = [
-            "Animal appears healthy. Continue regular monitoring.",
-            "Maintain vaccination schedule.",
-            "Ensure clean water and proper nutrition."
-        ]
+    # Not a cow image
+    if not result.get("is_cow", True):
+        return jsonify({
+            "error": "not_a_cow",
+            "message": "Please upload a valid cow image.",
+            "cow_confidence": result.get("cow_confidence")
+        }), 400
 
-    # Save prediction to database
-    db = load_db()
+    if "error" in result and result["error"] != "not_a_cow":
+        return jsonify(result), 503
+
+    # Save to database
+    db     = load_db()
     record = {
-        "id": str(uuid.uuid4()),
-        "user_id": user_id,
-        "filename": filename,
-        "label": label,
-        "confidence": round(confidence * 100, 2),
-        "is_infected": is_infected,
-        "timestamp": datetime.utcnow().isoformat()
+        "id":         str(uuid.uuid4()),
+        "user_id":    user_id,
+        "filename":   filename,
+        "label":      result["prediction"],
+        "confidence": result["confidence"],
+        "is_infected":result["is_infected"],
+        "timestamp":  datetime.utcnow().isoformat()
     }
     db["predictions"].append(record)
     save_db(db)
 
     return jsonify({
-        "prediction": label,
-        "confidence": round(confidence * 100, 2),
-        "is_infected": is_infected,
-        "recommendations": recommendations,
-        "case_id": record["id"],
-        "saved_image": filename
+        "prediction":      result["prediction"],
+        "confidence":      result["confidence"],
+        "is_infected":     result["is_infected"],
+        "recommendations": result.get("recommendations", []),
+        "raw_probability": result.get("raw_probability"),
+        "threshold_used":  result.get("threshold_used"),
+        "cow_confidence":  result.get("cow_confidence"),
+        "case_id":         record["id"],
+        "saved_image":     filename,
     })
 
 
@@ -325,5 +332,5 @@ def get_history(user_id):
 
 
 if __name__ == "__main__":
-    # Model already loaded at startup via load_model_once()
+    # Predictor already loaded at startup via get_or_init_predictor()
     app.run(debug=True, port=5000)
