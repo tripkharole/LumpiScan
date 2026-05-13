@@ -27,6 +27,13 @@
       "location": "stwt",
       "name": "asa",
       "created_at": "2026-05-06T07:48:22.722718"
+    },
+    {
+      "id": "1c9fff84-4033-4ab5-8f47-79ca59190c75",
+      "phone": "9754630070",
+      "location": "balaghat",
+      "name": "vinod",
+      "created_at": "2026-05-13T10:53:40.113480"
     }
   ],
   "vets": [
@@ -53,6 +60,18 @@
       "rating": 4.5,
       "reviews": 0,
       "created_at": "2026-04-25T09:56:07.537329"
+    },
+    {
+      "id": "a4577d19-bb1f-43ec-a10b-46497f62048f",
+      "name": "Tripti Kharole",
+      "phone": "+919302494765",
+      "specialization": "Bovine Medicine",
+      "clinic_address": "balaghat",
+      "lat": null,
+      "lon": null,
+      "rating": 4.5,
+      "reviews": 0,
+      "created_at": "2026-05-13T10:55:11.345828"
     }
   ],
   "predictions": [
@@ -325,6 +344,33 @@
       "confidence": 99.93,
       "is_infected": false,
       "timestamp": "2026-05-11T06:46:35.207091"
+    },
+    {
+      "id": "c3509a4a-c30a-4aab-9499-3eb07ab3d309",
+      "user_id": "anonymous",
+      "filename": "2dbf7c02022d417a8330fc09eb021fba.jpg",
+      "label": "healthy",
+      "confidence": 98.93,
+      "is_infected": false,
+      "timestamp": "2026-05-13T10:53:28.808928"
+    },
+    {
+      "id": "111e0ac9-4837-4a4e-8cc3-c04d6cc37464",
+      "user_id": "1c9fff84-4033-4ab5-8f47-79ca59190c75",
+      "filename": "5ecd0557a7794159a8d8978e1ed785f6.jpg",
+      "label": "healthy",
+      "confidence": 98.93,
+      "is_infected": false,
+      "timestamp": "2026-05-13T10:54:03.229170"
+    },
+    {
+      "id": "941fdc7e-d892-48a3-af31-27efb68106fa",
+      "user_id": "1c9fff84-4033-4ab5-8f47-79ca59190c75",
+      "filename": "469172aafc0c443fbd21b000c7f01180.jpg",
+      "label": "lumpy",
+      "confidence": 99.16,
+      "is_infected": true,
+      "timestamp": "2026-05-13T10:54:26.570000"
     }
   ]
 }

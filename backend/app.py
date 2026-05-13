@@ -69,7 +69,9 @@ def get_or_init_predictor():
         print(f"[PREDICTOR] ERROR: {e}")
         return None
 
-get_or_init_predictor()   # warm up at startup
+# Lazy loading — model loads on first request, not at startup
+# This prevents Gunicorn worker timeout on Render free tier
+# get_or_init_predictor()  ← disabled for Render deployment
 # ──────────────────────────────────────────────────────────────────────────────
 
 
